@@ -12,16 +12,33 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('sales_data')
 
+
 def get_sales_data():
     """
     Get sales figures input from the user.
     """
-    print("Please enter sales data of units from the last selling day.")
-    print("Data should be 5 numbers, separated by commas")
+    print("Please enter the sale of units data from the last selling day.")
+    print("Data should be five numbers, separated by commas.")
     print("Example: 1,2,3,4,5\n")
 
     data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+    sales_data = data_str.split(",")
+    validate_data(sales_data)
+
+
+def validate_data(values):
+    """
+    Inside the try, converts all string values into integers.
+    Raises ValueError if strings cannot be converted into int,
+    or if there aren't exactly 5 values.
+    """
+    try:
+        if len(values) != 5:
+            raise ValueError(
+                f"Exactly 5 values required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
 
 
 get_sales_data()
