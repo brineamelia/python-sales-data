@@ -17,13 +17,20 @@ def get_sales_data():
     """
     Get sales figures input from the user.
     """
-    print("Please enter the sale of units data from the last selling day.")
-    print("Data should be five numbers, separated by commas.")
-    print("Example: 1,2,3,4,5\n")
+    while True:
+       print("Please enter the sale of units data from the last selling day.")
+       print("Data should be five numbers, separated by commas.")
+       print("Example: 1,2,3,4,5\n")
 
-    data_str = input("Enter your data here: ")
-    sales_data = data_str.split(",")
-    validate_data(sales_data)
+       data_str = input("Enter your data here: ")
+    
+       sales_data = data_str.split(",")
+
+       if validate_data(sales_data):
+            print("Data is valid!")
+            break
+
+    return sales_data
 
 
 def validate_data(values):
